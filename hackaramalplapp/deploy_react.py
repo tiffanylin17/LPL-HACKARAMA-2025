@@ -3,7 +3,7 @@ import subprocess
 import sys
 
 # Configuration: Customize these values
-BUCKET_NAME = "lplhackaramatestbucket7"  # Replace with your S3 bucket name
+BUCKET_NAME = "lpl2025hackaramateam7"  # Replace with your S3 bucket name
 BUILD_DIR = "./build"  # Directory containing the React build
 AWS_REGION = "us-west-2"  # AWS region for your S3 bucket
 

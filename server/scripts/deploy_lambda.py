@@ -3,7 +3,7 @@ import subprocess
 import json
 import uuid
 # Configuration: Set base directory, default IAM Role ARN, and API Gateway settings
-LAMBDA_DIR = "server/lambda_functions"  # Change this to your desired path
+LAMBDA_DIR = "../lambda_functions"  # Change this to your desired path
 DEFAULT_IAM_ROLE_ARN = "arn:aws:iam::201340800660:role/LambdaFullAccess"  # Replace with your IAM role ARN
 API_GATEWAY_NAME = "dashboard"  # Name of the API Gateway
 SHOW_STATUS_OUTPUT = False  # Set to True for detailed output during subprocess calls
