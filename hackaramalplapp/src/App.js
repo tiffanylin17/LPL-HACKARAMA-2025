@@ -1,12 +1,6 @@
-import React, { useState } from "react";
-
-function App() {
-  const [responseData, setResponseData] = useState(null); // State to hold the response
-  const [loading, setLoading] = useState(false); // State for loading indicator
-
-
-  import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Avatar } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -20,7 +14,14 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Bell, Calendar, Menu, Search, Settings } from "lucide-react";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  BellIcon,
+  CalendarIcon,
+  MoreVerticalIcon,
+  PowerIcon,
+  SearchIcon,
+} from "lucide-react";
 import React from "react";
 
 const navigationItems = [
@@ -36,6 +37,14 @@ const navigationItems = [
   "Documents",
 ];
 
+const tableHeaders = [
+  "Subject",
+  "Category",
+  "Date Created",
+  "Due Date",
+  "Account",
+];
+
 export default function ClientManagement() {
   return (
     <div className="min-h-screen bg-[#ececec]">
@@ -43,17 +52,25 @@ export default function ClientManagement() {
       <header className="h-[120px] bg-[#010529] flex items-center justify-between px-8">
         <h1 className="text-white text-4xl font-bold">Client Management</h1>
         <div className="flex items-center gap-6">
-          <Search className="w-6 h-6 text-white" />
-          <Bell className="w-6 h-6 text-white" />
-          <div className="w-[54px] h-[35px] bg-[#d9d9d9] rounded-full" />
-          <Settings className="w-6 h-6 text-white" />
-          <Menu className="w-6 h-6 text-white" />
+          <Button variant="ghost" size="icon">
+            <SearchIcon className="h-6 w-6 text-white" />
+          </Button>
+          <Button variant="ghost" size="icon">
+            <BellIcon className="h-6 w-6 text-white" />
+          </Button>
+          <Avatar className="h-8 w-8 bg-gray-300" />
+          <Button variant="ghost" size="icon">
+            <PowerIcon className="h-6 w-6 text-white" />
+          </Button>
+          <Button variant="ghost" size="icon">
+            <MoreVerticalIcon className="h-6 w-6 text-white" />
+          </Button>
         </div>
       </header>
 
       {/* Navigation */}
-      <NavigationMenu className="w-full bg-[#d9d9d9] border-b border-[#777777]">
-        <NavigationMenuList className="flex justify-start px-4 py-6 gap-8">
+      <NavigationMenu className="bg-[#d9d9d9] border-b border-[#777777]">
+        <NavigationMenuList className="flex justify-start px-4 h-[82px] items-center gap-8">
           {navigationItems.map((item) => (
             <NavigationMenuItem key={item}>
               <NavigationMenuLink className="text-[#3f3f3f] font-bold text-2xl hover:text-black">
@@ -68,29 +85,31 @@ export default function ClientManagement() {
         {/* Sidebar */}
         <aside className="w-[494px] bg-[#d9d9d9] min-h-[917px] p-6">
           <div className="flex items-center gap-4 mb-12">
-            <img src="" alt="Profile" className="w-[41px] h-[43px]" />
-            <h2 className="text-3xl font-bold">Good morning LPL Advisor</h2>
+            <Avatar className="h-12 w-12" />
+            <h2 className="text-2xl font-bold">Good morning LPL Advisor</h2>
           </div>
 
           <div className="flex items-center gap-4 mb-6">
-            <Calendar className="w-[71px] h-[70px]" />
-            <h3 className="text-4xl font-bold">Client Reminders</h3>
+            <CalendarIcon className="h-16 w-16" />
+            <h2 className="text-4xl font-bold">Client Reminders</h2>
           </div>
 
-          <div className="flex gap-4">
-            <Button variant="ghost" className="text-2xl font-bold">
-              Birthdays
-            </Button>
-            <Button variant="ghost" className="text-2xl font-bold">
-              Anniversaries
-            </Button>
-          </div>
+          <Tabs defaultValue="birthdays">
+            <TabsList className="grid w-[400px] grid-cols-2 bg-[#d9d9d9]">
+              <TabsTrigger value="birthdays" className="text-2xl font-bold">
+                Birthdays
+              </TabsTrigger>
+              <TabsTrigger value="anniversaries" className="text-2xl font-bold">
+                Anniversaries
+              </TabsTrigger>
+            </TabsList>
+          </Tabs>
         </aside>
 
         {/* Main Content */}
         <main className="flex-1 p-8">
           <div className="flex items-center gap-4 mb-8">
-            <Bell className="w-[60px] h-[60px]" />
+            <BellIcon className="h-12 w-12" />
             <h2 className="text-2xl font-bold">Open Notifications</h2>
           </div>
 
@@ -99,40 +118,35 @@ export default function ClientManagement() {
               <Table>
                 <TableHeader>
                   <TableRow className="bg-[#d9d9d9]">
-                    <TableHead className="font-bold text-2xl text-black">
-                      Subject
-                    </TableHead>
-                    <TableHead className="font-bold text-2xl text-black">
-                      Category
-                    </TableHead>
-                    <TableHead className="font-bold text-2xl text-black">
-                      Date Created
-                    </TableHead>
-                    <TableHead className="font-bold text-2xl text-black">
-                      Due Date
-                    </TableHead>
-                    <TableHead className="font-bold text-2xl text-black">
-                      Account
-                    </TableHead>
+                    {tableHeaders.map((header) => (
+                      <TableHead
+                        key={header}
+                        className="text-2xl font-bold text-black"
+                      >
+                        {header}
+                      </TableHead>
+                    ))}
                   </TableRow>
                 </TableHeader>
-                <TableBody>
-                  {/* Table content would be populated here */}
-                </TableBody>
+                <TableBody>{/* Table content would go here */}</TableBody>
               </Table>
             </CardContent>
           </Card>
         </main>
 
         {/* Risk Indicator */}
-        <aside className="w-[255px] p-4">
+        <aside className="w-[300px] p-4">
           <Card>
+            <CardHeader>
+              <CardTitle className="text-center">RISK</CardTitle>
+            </CardHeader>
             <CardContent>
-              <img
-                src=""
-                alt="Risk Indicator"
-                className="w-full h-[221px] object-cover"
-              />
+              <div className="w-48 h-48 mx-auto">
+                {/* Placeholder for risk gauge visualization */}
+                <div className="rounded-full border-8 border-green-400 w-full h-full flex items-center justify-center">
+                  <span className="text-2xl font-bold">Low</span>
+                </div>
+              </div>
             </CardContent>
           </Card>
         </aside>
@@ -140,20 +154,3 @@ export default function ClientManagement() {
     </div>
   );
 }
-
-
-  return (
-    <div style={{ padding: "20px" }}>
-      <h1>Test API Endpoint</h1>
-      <button onClick={handleButtonClick} disabled={loading}>
-        {loading ? "Loading..." : "Send Request"}
-      </button>
-      <div style={{ marginTop: "20px" }}>
-        <h2>Response:</h2>
-        <pre>{responseData ? JSON.stringify(responseData, null, 2) : "No response yet"}</pre>
-      </div>
-    </div>
-  );
-}
-
-export default App;
