@@ -5,7 +5,7 @@ import sys
 # Configuration: Customize these values
 BUCKET_NAME = "lplhackaramatestbucket7"  # Replace with your S3 bucket name
 BUILD_DIR = "./build"  # Directory containing the React build
-AWS_REGION = "us-east-1"  # AWS region for your S3 bucket
+AWS_REGION = "us-west-2"  # AWS region for your S3 bucket
 
 def build_react_app():
     """Build the React app."""
