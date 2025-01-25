@@ -1,30 +1,39 @@
 import boto3
+import json
+from decimal import Decimal
 
-def query_dynamodb_table(advisor_id):
-    # Initialize DynamoDB resource
-    dynamodb = boto3.resource('dynamodb', region_name='us-west-2')
-    table_name = "AdvisorClientTable"
-    table = dynamodb.Table(table_name)
+# DynamoDB configuration
+dynamodb = boto3.resource('dynamodb', region_name='us-west-2')
+TABLE_NAME = "AdvisorClientTable"
 
-    # Query advisor metadata
-    response = table.query(
-        KeyConditionExpression="PK = :pk AND SK = :sk",
-        ExpressionAttributeValues={
-            ":pk": f"ADVISOR#{advisor_id}",
-            ":sk": "METADATA"
-        }
-    )
-    print("Advisor Metadata:", response.get("Items", []))
+def query_clients_by_advisor(advisor_id):
+    try:
+        table = dynamodb.Table(TABLE_NAME)
 
-    # Query all clients for the advisor
-    response = table.query(
-        KeyConditionExpression="PK = :pk",
-        ExpressionAttributeValues={
-            ":pk": f"ADVISOR#{advisor_id}"
-        }
-    )
-    print("Clients:", [item for item in response.get("Items", []) if item["SK"] != "METADATA"])
+        # Scan the table for items with the matching advisor_id
+        response = table.scan(
+            FilterExpression="advisor_id = :advisor_id",
+            ExpressionAttributeValues={
+                ":advisor_id": Decimal(str(advisor_id))
+            }
+        )
+
+        # Extract items from the response
+        items = response.get("Items", [])
+        if not items:
+            return {"status": "No clients found for the advisor."}
+
+        return {"status": "Success", "clients": items}
+
+    except Exception as e:
+        return {"status": "Error", "message": str(e)}
 
 if __name__ == "__main__":
-    advisor_id = "123"  # Replace with the advisor ID you want to query
-    query_dynamodb_table(advisor_id)
+    # Specify the advisor ID to query
+    advisor_id = 12345  # Replace with your desired advisor ID
+
+    # Query the data
+    result = query_clients_by_advisor(advisor_id)
+
+    # Print the result in JSON format
+    print(json.dumps(result, indent=4))

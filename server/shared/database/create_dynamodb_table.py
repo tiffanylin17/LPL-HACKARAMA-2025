@@ -10,12 +10,10 @@ def create_dynamodb_table():
         table = dynamodb.create_table(
             TableName=table_name,
             KeySchema=[
-                {'AttributeName': 'PK', 'KeyType': 'HASH'},  # Partition Key
-                {'AttributeName': 'SK', 'KeyType': 'RANGE'}  # Sort Key
+                {'AttributeName': 'PK', 'KeyType': 'HASH'}  # Partition Key
             ],
             AttributeDefinitions=[
                 {'AttributeName': 'PK', 'AttributeType': 'S'},  # String
-                {'AttributeName': 'SK', 'AttributeType': 'S'}   # String
             ],
             BillingMode='PAY_PER_REQUEST',  # On-demand billing
         )
