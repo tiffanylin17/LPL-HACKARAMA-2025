@@ -7,12 +7,12 @@ function App() {
   const handleButtonClick = async () => {
     setLoading(true);
     try {
-      const response = await fetch("https://mkl79fjs9e.execute-api.us-east-1.amazonaws.com/prod/notificationHandler", {
-        method: "POST",
+      const response = await fetch("https://mkl79fjs9e.execute-api.us-east-1.amazonaws.com/prod/notificationHandler?name=testing!", {
+        method: "GET",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ name: "test" }), // Add the payload if required
+        // body: JSON.stringify({ name: "test" }), // Add the payload if required
       });
 
       if (!response.ok) {
