@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ClientGrid from "../components/ClientGrid";
 
-const Homepage = () => {
+const ClientList = () => {
   const [clients, setClients] = useState([]);
 
   // Fetch client data (replace with your API call or local data)
@@ -33,4 +33,4 @@ const Homepage = () => {
   );
 };
 
-export default Homepage;
+export default ClientList;
