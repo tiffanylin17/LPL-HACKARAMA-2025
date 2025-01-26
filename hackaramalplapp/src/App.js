@@ -1,4 +1,6 @@
 import React from "react";
+import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+
 import { Button } from "@mui/material";
 import PieChart from "./components/PieChart";
 import ClientList from "./pages/ClientList"; // Import the Client List page
@@ -6,18 +8,20 @@ import ClientList from "./pages/ClientList"; // Import the Client List page
 
 function App() {
   return (
-    <div style={{ padding: "20px" }}>
-       <Router>
-      {/* Navbar for navigation */}
-      <Navbar />
+    <Router>
+      <div style={{ padding: "20px" }}>
+        <h1>Welcome to Elijah's App</h1>
 
-      {/* Page Routing */}
-      <Routes>
-        <Route path="/" element={<h1>Welcome to the App</h1>} />
-        <Route path="/client-list" element={<ClientList />} />
-      </Routes>
+        {/* Hyperlink to the Client List page */}
+        <Link to="/client-list">Go to Client List</Link>
+
+        {/* Routes */}
+        <Routes>
+          <Route path="/" element={<h2>Home Page</h2>} />
+          <Route path="/client-list" element={<ClientList />} />
+        </Routes>
+      </div>
     </Router>
-    </div>
   );
 }
 
