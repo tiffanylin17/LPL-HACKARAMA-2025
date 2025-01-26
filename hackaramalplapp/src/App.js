@@ -1,5 +1,7 @@
 import React from "react";
 import { Button } from "@mui/material";
+import PieChart from "./components/PieChart";
+
 
 function App() {
   return (
@@ -8,6 +10,7 @@ function App() {
       <Button variant="contained" color="primary">
         Click Me
       </Button>
+        <PieChart />
     </div>
   );
 }
